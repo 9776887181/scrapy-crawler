@@ -5,9 +5,13 @@
 
 
 # useful for handling different item types with a single interface
+import sys
+
+sys.path.append('/Users/aq/data/python-code/scrapy-crawler')
+
+from common.mysql import Mysql
+from common.redis import Redis
 from itemadapter import ItemAdapter
-from twisted.enterprise import adbapi
-import pymysql
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.pipelines.files import FilesPipeline
 
@@ -42,23 +46,8 @@ class AppmicomFilesPipeline(FilesPipeline):
 
 class AppmicomMysqlPipeline:
 
-    def __init__(self, dbpool) -> None:
-        self.dbpool = dbpool 
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        dbparams = dict(
-            host = crawler.settings.get('MYSQL_HOST'), # 读取settings中的配置
-            db = crawler.settings.get('MYSQL_DBNAME'),
-            user= crawler.settings.get('MYSQL_USER'),
-            passwd = crawler.settings.get('MYSQL_PASSWD'),
-            charset = 'utf8', # 编码要加上，否则可能出现中文乱码问题
-            cursorclass = pymysql.cursors.DictCursor,
-            use_unicode = False,    
-        )
-
-        dbpool = adbapi.ConnectionPool('pymysql', **dbparams) # **表示将字典扩展为关键字参数,相当于host=xxx,db=yyy....
-        return cls(dbpool) # 相当于dbpool付给了这个类，self中可以得到
+    def __init__(self) -> None:
+        self.dbpool = Mysql.connect()
 
     
     def process_item(self, item, spider):
@@ -68,6 +57,9 @@ class AppmicomMysqlPipeline:
 
 
     def _conditional_insert(self, tx, item):
+
+        Redis.connect().set(item['collect_url'], 1)
+
         sql = "INSERT INTO test(`name`) VALUES(%s)"
         params = (item["name"])
         tx.execute(sql, params)

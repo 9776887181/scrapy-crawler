@@ -74,6 +74,14 @@ class AppMiSpider(scrapy.Spider):
                 item['theme'] = extract_with_css('div.app-info img::attr(src)')
                 item['collect_url'] = response.url
                 item['download'] = url.scheme + '://' + url.hostname + extract_with_css('div.app-info div.app-info-down a.download::attr(href)')
+                item['bundle_id'] = bundle_id
+                item['category'] = response.css('div.app-info p.special-font::text').getall()[0]
+                item['adaptation'] = response.css('div.app-info p.special-font::text').getall()[1]
+                item['version'] = version
+                item['updated_at'] = updated_at
+                item['auther'] = auther
+                item['img_list'] = response.css('div.img-view img::attr(src)').getall()
+                item['introduction'] = response.css('div.app-text p.pslide').getall()
 
                 yield item
 
@@ -99,3 +107,4 @@ class AppMiSpider(scrapy.Spider):
                 for item in response.json()['data']:
                     next_page = f'https://app.mi.com/details?id={item["packageName"]}'
                     yield response.follow(next_page, callback=self.parse)
+

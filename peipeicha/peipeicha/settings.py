@@ -1,4 +1,4 @@
-# Scrapy settings for appMiCom project
+# Scrapy settings for peipeicha project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'appMiCom'
+BOT_NAME = 'peipeicha'
 
-SPIDER_MODULES = ['appMiCom.spiders']
-NEWSPIDER_MODULE = 'appMiCom.spiders'
+SPIDER_MODULES = ['peipeicha.spiders']
+NEWSPIDER_MODULE = 'peipeicha.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'appMiCom (+http://www.yourdomain.com)'
+#USER_AGENT = 'peipeicha (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -37,21 +37,21 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
+#DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 #   'Accept-Language': 'en',
-# }
+#}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'appMiCom.middlewares.AppmicomSpiderMiddleware': 543,
+#    'peipeicha.middlewares.PeipeichaSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'appMiCom.middlewares.AppmicomDownloaderMiddleware': 543,
+#    'peipeicha.middlewares.PeipeichaDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,10 +63,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-#    'appMiCom.pipelines.AppmicomPipeline': 300,
-   'appMiCom.pipelines.AppmicomMysqlPipeline': 3,    
-#    'appMiCom.pipelines.AppmicomImagesPipeline': 1,    
-#    'appMiCom.pipelines.AppmicomFilesPipeline': 2,    
+#    'peipeicha.pipelines.PeipeichaPipeline': 300,
+    'scrapy.pipelines.images.ImagesPipeline': 1
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,18 +89,4 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
-MEDIA_ALLOW_REDIRECTS = True
-
-DUPEFILTER_DEBUG = False
-
 IMAGES_STORE = 'images'
-
-FILES_STORE = 'files'
-
-# # mysql config
-# MYSQL_HOST = '127.0.0.1'
-# MYSQL_DBNAME = 'scrapy-crawler'
-# MYSQL_USER = 'root'
-# MYSQL_PASSWD = 'root'
-# MYSQL_PORT = 3306
-
