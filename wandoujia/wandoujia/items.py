@@ -5,7 +5,8 @@
 
 import scrapy
 
-class AppmicomItem(scrapy.Item):
+
+class WandoujiaItem(scrapy.Item):
     # define the fields for your item here like:
     collect_url = scrapy.Field() # 采集地址
     name = scrapy.Field() # app名称
