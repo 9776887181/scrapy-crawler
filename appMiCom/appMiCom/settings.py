@@ -98,11 +98,3 @@ DUPEFILTER_DEBUG = False
 IMAGES_STORE = 'images'
 
 FILES_STORE = 'files'
-
-# # mysql config
-# MYSQL_HOST = '127.0.0.1'
-# MYSQL_DBNAME = 'scrapy-crawler'
-# MYSQL_USER = 'root'
-# MYSQL_PASSWD = 'root'
-# MYSQL_PORT = 3306
-
