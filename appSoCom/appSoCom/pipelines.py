@@ -53,7 +53,7 @@ class AppsocomImagesPipeline(ImagesPipeline):
 
         for ok, x in results:
             if ok:
-                if x['url'] == item['theme']:
+                if x['url'] in item['theme']:
                     theme.append(x['path'])
                 else:
                     image_list.append(x['path'])
