@@ -16,3 +16,5 @@ db = 4
 [log]
 
 [ftp]
+user = user
+passwd = passwd

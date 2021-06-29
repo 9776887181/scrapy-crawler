@@ -7,6 +7,13 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
+import sys
+
+sys.path.append( os.path.join(os.getcwd(), os.pardir) )
+
+from common.config import Config
+
 BOT_NAME = 'appSoCom'
 
 SPIDER_MODULES = ['appSoCom.spiders']
@@ -64,9 +71,9 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 ITEM_PIPELINES = {
-   # 'appSoCom.pipelines.AppsocomImagesPipeline': 300,
+   'appSoCom.pipelines.AppsocomImagesPipeline': 300,
    # 'appSoCom.pipelines.AppmicomMysqlPipeline': 200,
-   'appSoCom.pipelines.AppsocomPipeline': 200,
+   # 'appSoCom.pipelines.AppsocomPipeline': 200,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -95,7 +102,7 @@ ITEM_PIPELINES = {
 
 IMAGES_STORE = 'images'
 
-# FILES_STORE = 'ftp://47.57.163.120:21'
+# FILES_STORE = Config.get('ftp', 'address')
 
 FILES_STORE = 'files'
 
@@ -104,6 +111,6 @@ DOWNLOAD_FAIL_ON_DATALOSS = False
 
 FEED_STORAGE_FTP_ACTIVE = True
 
-FTP_USER = 'app_so_com'
-FTP_PASSWORD = 'ezTkp4CXwEs4i7Pn'
+FTP_USER = Config.get('ftp', 'user')
+FTP_PASSWORD = Config.get('ftp', 'passwd')
 FTP_PASSIVE_MODE = False

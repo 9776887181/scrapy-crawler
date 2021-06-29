@@ -25,10 +25,9 @@ from scrapy.pipelines.files import FilesPipeline
 from scrapy.exceptions import DropItem
 from datetime import datetime
 
+
 class AppsocomPipeline:
     def process_item(self, item, spider):
-        test()
-        logging.info('++++++++++++')
         return item
 
 
@@ -41,10 +40,12 @@ class AppsocomImagesPipeline(ImagesPipeline):
 
     def get_media_requests(self, item, info):
         for image_url in item['image_list']:
-            yield scrapy.Request(image_url)   
+            if image_url is not None:
+                yield scrapy.Request(image_url)   
 
         for theme in item['theme']:
-            yield scrapy.Request(theme)
+            if theme is not None:
+                yield scrapy.Request(theme)
          
 
     def item_completed(self, results, item, info):
@@ -82,10 +83,8 @@ class AppmicomMysqlPipeline:
 
         create_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        logging.info(create_at)
-
-        sql = "INSERT INTO test(`name`, `collect_url`, `type`,  `theme`, `category`, `size`, `version`, `auther`, `language`, `download`, `bundle_id`, `tag`, `adaptation`, `image_list`, `introduction`, `create_at`)"
-        sql += " VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO test(`name`, `collect_url`, `type`,  `theme`, `category`, `size`, `version`, `updated_at`, `auther`, `language`, `download`, `bundle_id`, `tag`, `adaptation`, `image_list`, `introduction`, `create_at`)"
+        sql += " VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         params = (
             item['name'],
             item['collect_url'],
@@ -94,6 +93,7 @@ class AppmicomMysqlPipeline:
             item['category'],
             item['size'],
             item['version'],
+            item['updated_at'],
             item['auther'],
             item['language'],
             item['download'],
