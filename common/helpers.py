@@ -5,3 +5,8 @@ def url_params(url):
     params = {k: v[0] for k, v in params.items()}
     return params
 
+
+def test():
+    print('test')
+
+

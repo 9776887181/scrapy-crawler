@@ -19,10 +19,10 @@ class AppsSpider(scrapy.Spider):
     start_urls = [
         # 'https://app.so.com/',
         # 'https://app.so.com/index/getData?page=1&type=1',
-        # 'https://app.so.com/index/getData?page=1&type=2',
+        'https://app.so.com/index/getData?page=1&type=2',
 
         #  下面分析使用URL
-        'https://app.so.com/category/cat_request?page=2&requestType=ajax&_t=1624771253662&cid=3&csid=11',
+        # 'https://app.so.com/category/cat_request?page=2&requestType=ajax&_t=1624771253662&cid=3&csid=11',
         # 'https://app.so.com/detail/index?pname=Android_com.freewifi.wifishenqi&id=2528888',
     ]
 
@@ -93,7 +93,7 @@ class AppsSpider(scrapy.Spider):
         item['type'] = appinfo.get('type')
         item['name'] = appinfo.get('name')
         item['size'] = appinfo.get('size_fixed')
-        item['theme'] = appinfo.get('logo_url')
+        item['theme'] = [appinfo.get('logo_url'), appinfo.get('logo_url_160'), appinfo.get('logo_url_512')]
         item['download'] = appinfo.get('down_url')
         item['bundle_id'] = appinfo.get('apkid')
         item['category'] = appinfo.get('category_name')
@@ -102,8 +102,6 @@ class AppsSpider(scrapy.Spider):
         item['version'] = appinfo.get('version_name')
         item['image_list'] = response.css('div.app-image img::attr(src)').getall()
         item['introduction'] = w3lib.html.remove_tags(response.css('div.app-about-full ').get(), keep=('p', 'br'))
-        # item['image_urls'] = item['image_list'][:]
-        # item['image_urls'].append(item['theme'])
 
         yield item
 

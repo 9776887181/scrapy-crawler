@@ -26,5 +26,7 @@ class AppsocomItem(scrapy.Item):
 
     # 临时字段
     introduction_image_urls = scrapy.Field() # 应用介绍里存在的图片
-    # image_urls = scrapy.Field() # 需要下载的图片 list
+    image_urls = scrapy.Field() # 需要下载的图片 list
+    image_paths = scrapy.Field()
+    images = scrapy.Field()
     

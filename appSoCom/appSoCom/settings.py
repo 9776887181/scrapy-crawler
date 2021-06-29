@@ -64,7 +64,9 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 ITEM_PIPELINES = {
-   'appSoCom.pipelines.AppsocomImagesPipeline': 300,
+   # 'appSoCom.pipelines.AppsocomImagesPipeline': 300,
+   # 'appSoCom.pipelines.AppmicomMysqlPipeline': 200,
+   'appSoCom.pipelines.AppsocomPipeline': 200,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -88,6 +90,20 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+# IMAGES_STORE = 'ftp://47.57.163.120:21'
+# IMAGES_URLS_FIELD = 'image_list'
+
 IMAGES_STORE = 'images'
 
+# FILES_STORE = 'ftp://47.57.163.120:21'
+
 FILES_STORE = 'files'
+
+
+DOWNLOAD_FAIL_ON_DATALOSS = False
+
+FEED_STORAGE_FTP_ACTIVE = True
+
+FTP_USER = 'app_so_com'
+FTP_PASSWORD = 'ezTkp4CXwEs4i7Pn'
+FTP_PASSIVE_MODE = False
