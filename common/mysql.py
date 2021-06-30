@@ -6,6 +6,7 @@ class Mysql:
     def __init__(self) -> None:
         dbparams = dict(
             host = Config.get('mysql', 'host'), 
+            port = int(Config.get('mysql', 'prot')),
             db = Config.get('mysql', 'dbname'),
             user= Config.get('mysql', 'user'),
             passwd = Config.get('mysql', 'passwd'),

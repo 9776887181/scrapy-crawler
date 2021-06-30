@@ -83,7 +83,7 @@ class AppmicomMysqlPipeline:
 
         create_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        sql = "INSERT INTO test(`name`, `collect_url`, `type`,  `theme`, `category`, `size`, `version`, `updated_at`, `auther`, `language`, `download`, `bundle_id`, `tag`, `adaptation`, `image_list`, `introduction`, `create_at`)"
+        sql = "INSERT INTO applications_1(`name`, `collect_url`, `type`,  `theme`, `category`, `size`, `version`, `updated_at`, `auther`, `language`, `download`, `bundle_id`, `tag`, `adaptation`, `image_list`, `introduction`, `create_at`)"
         sql += " VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         params = (
             item['name'],

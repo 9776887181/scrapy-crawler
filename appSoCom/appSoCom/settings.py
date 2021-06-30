@@ -51,9 +51,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'appSoCom.middlewares.AppsocomSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+   'appSoCom.middlewares.AppsocomSpiderMiddleware': 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
@@ -72,7 +72,7 @@ ROBOTSTXT_OBEY = True
 
 ITEM_PIPELINES = {
    'appSoCom.pipelines.AppsocomImagesPipeline': 300,
-   # 'appSoCom.pipelines.AppmicomMysqlPipeline': 200,
+   'appSoCom.pipelines.AppmicomMysqlPipeline': 200,
    # 'appSoCom.pipelines.AppsocomPipeline': 200,
 }
 
@@ -97,14 +97,14 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# IMAGES_STORE = 'ftp://47.57.163.120:21'
+IMAGES_STORE = f'ftp://{Config.get("ftp", "host")}:{Config.get("ftp", "prot")}'
 # IMAGES_URLS_FIELD = 'image_list'
 
-IMAGES_STORE = 'images'
+# IMAGES_STORE = 'images'
 
-# FILES_STORE = Config.get('ftp', 'address')
+FILES_STORE = f'ftp://{Config.get("ftp", "host")}:{Config.get("ftp", "prot")}'
 
-FILES_STORE = 'files'
+# FILES_STORE = 'files'
 
 
 DOWNLOAD_FAIL_ON_DATALOSS = False
@@ -114,3 +114,20 @@ FEED_STORAGE_FTP_ACTIVE = True
 FTP_USER = Config.get('ftp', 'user')
 FTP_PASSWORD = Config.get('ftp', 'passwd')
 FTP_PASSIVE_MODE = False
+
+
+
+# 自动限制爬行速度
+AUTOTHROTTLE_ENABLED = True
+
+# 初始下载延迟（秒）
+AUTOTHROTTLE_START_DELAY = 5
+
+# 在高延迟情况下设置的最大下载延迟（秒）
+AUTOTHROTTLE_MAX_DELAY = 60
+
+# Scrapy的平均请求数应与远程网站并行发送
+AUTOTHROTTLE_TARGET_CONCURRENCY = 1
+
+# 调试模式
+AUTOTHROTTLE_DEBUG = True

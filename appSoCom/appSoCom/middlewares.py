@@ -3,7 +3,12 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import scrapy
+from common.redis import Redis
+import logging
+from common.log import Logger
 from scrapy import signals
+from scrapy.exceptions import IgnoreRequest
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -26,6 +31,13 @@ class AppsocomSpiderMiddleware:
         # middleware and into the spider.
 
         # Should return None or raise an exception.
+        if 'appinfo' in response.meta:
+            version = Redis.connect().get(response.url)
+            
+            # 同一个版本软件不需要再次下载并且保存数据库
+            if version == response.meta['appinfo'].get('version_name'):
+                del response.meta['appinfo']
+    
         return None
 
     def process_spider_output(self, response, result, spider):

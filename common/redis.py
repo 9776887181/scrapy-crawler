@@ -5,8 +5,9 @@ class Redis:
     def __init__(self):
         dbparams = dict(
             host = Config.get('redis', 'host'), 
-            port = Config.get('redis', 'port'), 
+            port = int(Config.get('redis', 'port')), 
             db = Config.get('redis', 'db'),
+            password = Config.get('redis', 'passwd'),
             decode_responses = True,
         )
         self.__pool = redis.ConnectionPool(**dbparams)
